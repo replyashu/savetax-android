@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "893759024230",
+    "project_id": "file-tax-222fe",
+    "storage_bucket": "file-tax-222fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893759024230:android:3018bcfc86875a541d51a7",
+        "android_client_info": {
+          "package_name": "com.ashu.savemytax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893759024230-lgqvb3j4bpmmivn2jg1ehc64hi70ttun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8iB8YDu2JptqaFBCWSumw4kpoOMbqyQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893759024230-lgqvb3j4bpmmivn2jg1ehc64hi70ttun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
