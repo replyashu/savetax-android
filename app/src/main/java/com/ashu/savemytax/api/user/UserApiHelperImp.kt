@@ -1,13 +1,13 @@
-package com.ashu.ocotopus.api.user
+package com.ashu.savemytax.api.user
 
 import com.ashu.savemytax.data.NotificationToken
 import com.ashu.savemytax.data.RegisterResponse
 import com.ashu.savemytax.data.RegisterUser
-import okhttp3.MultipartBody
 import retrofit2.Response
 import javax.inject.Inject
 
-class UserApiHelperImp @Inject constructor(private val userApiService: UserApiService): UserAPiHelper {
+class UserApiHelperImp @Inject constructor(private val userApiService: UserApiService):
+    UserAPiHelper {
 
     override suspend fun registerNewUser(registerUser: RegisterUser): Response<RegisterResponse> =
         userApiService.registerUser(registerUser)

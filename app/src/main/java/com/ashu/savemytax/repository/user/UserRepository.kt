@@ -1,9 +1,8 @@
-package com.ashu.savemytax
+package com.ashu.savemytax.repository.user
 
-import com.ashu.ocotopus.api.user.UserAPiHelper
+import com.ashu.savemytax.api.user.UserAPiHelper
 import com.ashu.savemytax.data.NotificationToken
 import com.ashu.savemytax.data.RegisterUser
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userAPiHelper: UserAPiHelper) {

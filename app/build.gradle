@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.ashu.savemytax"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -56,6 +56,7 @@ dependencies {
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // Networking

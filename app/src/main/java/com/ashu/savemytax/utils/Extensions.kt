@@ -3,7 +3,6 @@ package com.ashu.savemytax.utils
 import android.os.SystemClock
 import android.view.View
 
-
 fun View.clickWithDebounce(debounceTime: Long = 600L, action: () -> Unit) {
     this.setOnClickListener(object : View.OnClickListener {
         private var lastClickTime: Long = 0

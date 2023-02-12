@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ashu.savemytax.UserRepository
+import com.ashu.savemytax.repository.user.UserRepository
 import com.ashu.savemytax.data.NotificationToken
 import com.ashu.savemytax.data.RegisterResponse
 import com.ashu.savemytax.data.RegisterUser

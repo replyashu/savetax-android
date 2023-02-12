@@ -1,10 +1,8 @@
-package com.ashu.ocotopus.api.user
+package com.ashu.savemytax.api.user
 
 import com.ashu.savemytax.data.NotificationToken
 import com.ashu.savemytax.data.RegisterResponse
 import com.ashu.savemytax.data.RegisterUser
-import com.google.firebase.firestore.auth.User
-import okhttp3.MultipartBody
 import retrofit2.Response
 
 interface UserAPiHelper {
