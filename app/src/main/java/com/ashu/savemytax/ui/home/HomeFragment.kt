@@ -1,6 +1,7 @@
 package com.ashu.savemytax.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -151,6 +152,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun fetchLocation() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
