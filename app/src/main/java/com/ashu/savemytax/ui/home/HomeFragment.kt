@@ -7,7 +7,11 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.Selection
+import android.text.TextWatcher
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +22,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.ashu.savemytax.R
 import com.ashu.savemytax.databinding.FragmentHomeBinding
 import com.ashu.savemytax.utils.ManagePermissions
+import com.ashu.savemytax.utils.getCurrency
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +52,8 @@ class HomeFragment : Fragment() {
     private var userLocation: Location? = null
 
     val sharedpreferences by lazy { requireContext().getSharedPreferences("preference_key", Context.MODE_PRIVATE) }
+
+    private var currency = "₹  "
 
 
     override fun onCreateView(
@@ -78,33 +86,54 @@ class HomeFragment : Fragment() {
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+            ) != PackageManager.PERMISSION_GRANTED) {
             locationPermissionRequest.launch(arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION))
         } else {
             fetchLocation()
         }
 
-        val amnt = binding.editCtc.editableText.toString()
-        if (amnt.isEmpty()) {
-            ctc = 0
-        } else {
-            ctc = amnt.toLong()
-        }
-
+        binding.textWelcomeUser.text = getString(R.string.welcome_user, sharedpreferences.getString("user_name", null))
         val userId = sharedpreferences.getString("user_uuid", null)
         binding.buttonComputeBreakup.setOnClickListener {
-            viewModel.fetchSalaryBreakupDetails(userId, userLocation, ctc)
+            val amnt = binding.editCtc.editableText.toString().replace(currency, "")
+            ctc = if (amnt.isEmpty()) {
+                0
+            } else {
+                amnt.toLong()
+            }
+            val isOldRegime = binding.checkboxRegime.isChecked
+            val optedFor12Pf = binding.checkboxPf1800.isChecked
+            viewModel.fetchSalaryBreakupDetails(userId, userLocation, ctc, isOldRegime, optedFor12Pf)
+        }
+
+        binding.editCtc.apply {
+            setText(currency)
+            Selection.setSelection(text, this.text?.length!!)
+            addTextChangedListener(object: TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (!s.toString().startsWith(currency)) {
+                        setText(currency);
+                        Selection.setSelection(text, text?.length!!);
+                    }
+                }
+            })
         }
     }
 
-    val locationPermissionRequest = registerForActivityResult(
+    private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         when {
@@ -129,6 +158,12 @@ class HomeFragment : Fragment() {
                 Log.d("locationacquired", location.toString())
                 userLocation = location
             }
+    }
+
+    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+        val inflater = super.onGetLayoutInflater(savedInstanceState)
+        val contextThemeWrapper: Context = ContextThemeWrapper(requireContext(), R.style.MainTheme)
+        return inflater.cloneInContext(contextThemeWrapper)
     }
 
     override fun onDestroyView() {

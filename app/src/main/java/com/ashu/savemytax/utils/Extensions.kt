@@ -2,6 +2,7 @@ package com.ashu.savemytax.utils
 
 import android.os.SystemClock
 import android.view.View
+import org.w3c.dom.Text
 
 fun View.clickWithDebounce(debounceTime: Long = 600L, action: () -> Unit) {
     this.setOnClickListener(object : View.OnClickListener {
@@ -14,4 +15,9 @@ fun View.clickWithDebounce(debounceTime: Long = 600L, action: () -> Unit) {
             lastClickTime = SystemClock.elapsedRealtime()
         }
     })
+}
+
+fun String.getCurrency(): String {
+
+    return "₹"
 }
