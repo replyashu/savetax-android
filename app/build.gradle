@@ -16,6 +16,10 @@ android {
         }
     }
 
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
+
     defaultConfig {
         applicationId "com.ashu.savemytax"
         minSdk 24
