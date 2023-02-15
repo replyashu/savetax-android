@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.home.HomeFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_welcome_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_ctc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter your ctc here"
+        android:gravity="center"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_regime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Opted For Old Regime"
+        app:layout_constraintTop_toBottomOf="@id/edit_ctc"
+        app:layout_constraintStart_toStartOf="@+id/edit_ctc" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_pf_1800"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Opted For 12% PF"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_regime"
+        app:layout_constraintStart_toStartOf="@+id/checkbox_regime" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_compute_breakup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Generate Breakup"
-        app:layout_constraintTop_toBottomOf="@id/edit_ctc"
+        app:layout_constraintTop_toBottomOf="@id/checkbox_pf_1800"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -4,6 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
+    <string name="welcome_user">Welcome To Tax Saver App %s</string>
 
     <!--PERMISSION HANDLING-->
     <string name="request_permission">Request</string>

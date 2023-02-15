@@ -56,12 +56,14 @@ class LoginActivity: AppCompatActivity() {
                 Status.ALREADY_REGISTERED -> {
                     Toast.makeText(this, it.message + "  " + it.data, Toast.LENGTH_LONG).show()
                     sharedpreferences.edit().putString("user_uuid", it.data?.userUid).apply()
+                    sharedpreferences.edit().putString("user_name", it.data?.name).apply()
                     retrieveFirebaseNotificationToken(it.data?.userUid)
                     showDashBoard()
                 }
                 Status.SUCCESS -> {
                     Toast.makeText(this, "Welcome" + it.data?.name, Toast.LENGTH_LONG).show()
                     sharedpreferences.edit().putString("user_uuid", it.data?.userUid).apply()
+                    sharedpreferences.edit().putString("user_name", it.data?.name).apply()
                     retrieveFirebaseNotificationToken(it.data?.userUid)
                     showDashBoard()
                 }

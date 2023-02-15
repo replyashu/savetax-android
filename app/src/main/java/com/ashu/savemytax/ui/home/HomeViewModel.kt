@@ -25,10 +25,11 @@ class HomeViewModel @Inject constructor(private val salaryRepository: SalaryRepo
     val result: LiveData<Resource<Boolean>>
         get() = _result
 
-    fun fetchSalaryBreakupDetails(userId: String?, location: Location?, ctc: Long?) = viewModelScope.launch {
+    fun fetchSalaryBreakupDetails(userId: String?, location: Location?, ctc: Long?, optedForOldRegime: Boolean,
+                                  optedFor12Pf: Boolean) = viewModelScope.launch {
         _result.postValue(Resource.loading(null))
 
-        val salaryRequest = SalaryRequest(userId, ctc, location?.longitude, location?.latitude)
+        val salaryRequest = SalaryRequest(userId, ctc, location?.longitude, location?.latitude, optedForOldRegime, optedFor12Pf)
         try {
             salaryRepository.sendSalaryForCompute(salaryRequest).let {
                 if (it.isSuccessful) {
