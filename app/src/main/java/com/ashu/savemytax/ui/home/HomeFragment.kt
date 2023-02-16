@@ -19,17 +19,27 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.ashu.savemytax.R
 import com.ashu.savemytax.databinding.FragmentHomeBinding
+import com.ashu.savemytax.ui.MainActivity
+import com.ashu.savemytax.ui.dashboard.DashboardFragment
+import com.ashu.savemytax.ui.details.DetailViewFragment
+import com.ashu.savemytax.utils.EventObserver
 import com.ashu.savemytax.utils.ManagePermissions
 import com.ashu.savemytax.utils.getCurrency
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.Serializable
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -55,7 +65,6 @@ class HomeFragment : Fragment() {
     val sharedpreferences by lazy { requireContext().getSharedPreferences("preference_key", Context.MODE_PRIVATE) }
 
     private var currency = "₹  "
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -132,6 +141,36 @@ class HomeFragment : Fragment() {
                 }
             })
         }
+
+        observers()
+    }
+
+    private fun observers() {
+
+        viewModel.result.observe(viewLifecycleOwner) {
+            it.data?.let { map ->
+                if (map.isNotEmpty()) {
+                    // Navigate to another screen
+                    navigateToDashboardFragment(map)
+                    for(i in map.keys) {
+                        Log.d(i, map[i].toString())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun navigateToDashboardFragment(map: Map<String, Double>) {
+        val navController = activity?.findNavController(R.id.nav_host_fragment_activity_main)
+        val fragment = DetailViewFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("salary_components", map as Serializable)
+        fragment.arguments = bundle
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.add(R.id.constraint_parent, fragment)
+        transaction.addToBackStack("homeFragment")
+        transaction.commit()
+//        navController?.navigate(R.id.navigation_profile, bundle)
     }
 
     private val locationPermissionRequest = registerForActivityResult(
@@ -160,12 +199,6 @@ class HomeFragment : Fragment() {
                 Log.d("locationacquired", location.toString())
                 userLocation = location
             }
-    }
-
-    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
-        val inflater = super.onGetLayoutInflater(savedInstanceState)
-        val contextThemeWrapper: Context = ContextThemeWrapper(requireContext(), R.style.MainTheme)
-        return inflater.cloneInContext(contextThemeWrapper)
     }
 
     override fun onDestroyView() {

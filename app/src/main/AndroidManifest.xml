@@ -52,6 +52,7 @@
                     android:scheme="otpless" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.details.DetailsViewActivity" />
 
         <service
             android:name=".notification.NotificationService"

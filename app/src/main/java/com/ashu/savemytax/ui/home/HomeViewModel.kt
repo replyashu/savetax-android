@@ -21,8 +21,8 @@ class HomeViewModel @Inject constructor(private val salaryRepository: SalaryRepo
     }
     val text: LiveData<String> = _text
 
-    private val _result = MutableLiveData<Resource<Boolean>>()
-    val result: LiveData<Resource<Boolean>>
+    private val _result = MutableLiveData<Resource<Map<String, Double>>>()
+    val result: LiveData<Resource<Map<String, Double>>>
         get() = _result
 
     fun fetchSalaryBreakupDetails(userId: String?, location: Location?, ctc: Long?, optedForOldRegime: Boolean,
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(private val salaryRepository: SalaryRepo
                 }
             }
         } catch (e: Exception) {
-
+            _result.postValue(Resource.error(e.stackTraceToString(), null))
         }
 
     }

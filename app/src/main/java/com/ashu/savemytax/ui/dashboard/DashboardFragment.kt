@@ -1,6 +1,7 @@
 package com.ashu.savemytax.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,11 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val bundle = arguments?.getBundle("salary_components")
+
+//        if (!bundle!!.isEmpty) {
+//            Log.d("gotcha", bundle.toString())
+//        }
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it

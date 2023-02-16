@@ -6,5 +6,6 @@ import javax.inject.Inject
 
 class SalaryRepository @Inject constructor(private val salaryApiHelper: SalaryApiHelper) {
 
-    suspend fun sendSalaryForCompute(salaryRequest: SalaryRequest) = salaryApiHelper.sendSalaryForComputation(salaryRequest)
+    suspend fun sendSalaryForCompute(salaryRequest: SalaryRequest) =
+        salaryApiHelper.sendSalaryForComputation(salaryRequest)
 }
