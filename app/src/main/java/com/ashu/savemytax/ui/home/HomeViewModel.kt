@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ashu.savemytax.data.RegisterResponse
+import com.ashu.savemytax.data.SalaryData
 import com.ashu.savemytax.data.SalaryRequest
+import com.ashu.savemytax.data.SalaryResponse
 import com.ashu.savemytax.repository.salary.SalaryRepository
 import com.ashu.savemytax.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +23,8 @@ class HomeViewModel @Inject constructor(private val salaryRepository: SalaryRepo
     }
     val text: LiveData<String> = _text
 
-    private val _result = MutableLiveData<Resource<Map<String, Double>>>()
-    val result: LiveData<Resource<Map<String, Double>>>
+    private val _result = MutableLiveData<Resource<List<SalaryResponse>>>()
+    val result: LiveData<Resource<List<SalaryResponse>>>
         get() = _result
 
     fun fetchSalaryBreakupDetails(userId: String?, location: Location?, ctc: Long?, optedForOldRegime: Boolean,

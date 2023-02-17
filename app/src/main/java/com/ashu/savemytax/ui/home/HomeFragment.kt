@@ -2,40 +2,28 @@ package com.ashu.savemytax.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Selection
 import android.text.TextWatcher
 import android.util.Log
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.ashu.savemytax.R
+import com.ashu.savemytax.data.SalaryData
+import com.ashu.savemytax.data.SalaryResponse
 import com.ashu.savemytax.databinding.FragmentHomeBinding
-import com.ashu.savemytax.ui.MainActivity
-import com.ashu.savemytax.ui.dashboard.DashboardFragment
-import com.ashu.savemytax.ui.details.DetailViewFragment
-import com.ashu.savemytax.utils.EventObserver
 import com.ashu.savemytax.utils.ManagePermissions
-import com.ashu.savemytax.utils.getCurrency
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
@@ -151,26 +139,18 @@ class HomeFragment : Fragment() {
             it.data?.let { map ->
                 if (map.isNotEmpty()) {
                     // Navigate to another screen
-                    navigateToDashboardFragment(map)
-                    for(i in map.keys) {
-                        Log.d(i, map[i].toString())
-                    }
+                    navigateToDashboardFragment(ArrayList(map))
                 }
             }
         }
     }
 
-    private fun navigateToDashboardFragment(map: Map<String, Double>) {
+    private fun navigateToDashboardFragment(map: ArrayList<SalaryResponse>) {
         val navController = activity?.findNavController(R.id.nav_host_fragment_activity_main)
-        val fragment = DetailViewFragment()
         val bundle = Bundle()
-        bundle.putSerializable("salary_components", map as Serializable)
-        fragment.arguments = bundle
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.add(R.id.constraint_parent, fragment)
-        transaction.addToBackStack("homeFragment")
-        transaction.commit()
-//        navController?.navigate(R.id.navigation_profile, bundle)
+        bundle.putParcelableArrayList("salary_components", map)
+        navController?.popBackStack()
+        navController?.navigate(R.id.navigation_dashboard, bundle)
     }
 
     private val locationPermissionRequest = registerForActivityResult(
