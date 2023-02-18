@@ -19,14 +19,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ir.mahozad.android.PieChart
+        android:id="@+id/pie_chart_net_salary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/text_dashboard"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ir.mahozad.android.PieChart
+        android:id="@+id/pie_chart_salary_breakup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintTop_toBottomOf="@id/text_dashboard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_show_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Show Breakup"
+        app:layout_constraintTop_toBottomOf="@id/pie_chart_salary_breakup" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_salary_components"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layoutAnimation="@anim/layout_animation_fall_down"
-        app:layout_constraintTop_toBottomOf="@id/text_dashboard" />
+        app:layout_constraintTop_toBottomOf="@id/pie_chart_salary_breakup"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
