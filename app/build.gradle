@@ -88,6 +88,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
+    // Pie Graph
+    implementation 'ir.mahozad.android:pie-chart:0.7.0'
+
     // Otp-less login
     implementation 'com.github.otpless-tech:otpless-android-sdk:1.0.3'
 

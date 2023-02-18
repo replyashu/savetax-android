@@ -9,5 +9,6 @@ data class SalaryResponse (
     val componentName: String? = null,
     val componentAmount: Double = 0.0,
     val isRequired: Boolean = false,
-    val isProofRequired: Boolean = false
+    val isProofRequired: Boolean = false,
+    val currency: String = "$"
 ): Parcelable
