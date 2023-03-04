@@ -91,6 +91,9 @@ dependencies {
     // Pie Graph
     implementation 'ir.mahozad.android:pie-chart:0.7.0'
 
+    // curl logger
+    implementation 'com.github.grapesnberries:curlloggerinterceptor:0.1'
+
     // Otp-less login
     implementation 'com.github.otpless-tech:otpless-android-sdk:1.0.3'
 

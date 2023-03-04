@@ -106,29 +106,29 @@ class HomeFragment : Fragment() {
             viewModel.fetchSalaryBreakupDetails(userId, userLocation, ctc, isOldRegime, optedFor12Pf)
         }
 
-        binding.editCtc.apply {
-            setText(currency)
-            Selection.setSelection(text, this.text?.length!!)
-            addTextChangedListener(object: TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    if (!s.toString().startsWith(currency)) {
-                        setText(currency);
-                        Selection.setSelection(text, text?.length!!);
-                    }
-                }
-            })
-        }
+//        binding.editCtc.apply {
+////            setText(currency)
+//            Selection.setSelection(text, this.text?.length!!)
+//            addTextChangedListener(object: TextWatcher {
+//                override fun beforeTextChanged(
+//                    s: CharSequence?,
+//                    start: Int,
+//                    count: Int,
+//                    after: Int
+//                ) {
+//                }
+//
+//                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                }
+//
+//                override fun afterTextChanged(s: Editable?) {
+//                    if (!s.toString().startsWith(currency)) {
+//                        setText(currency);
+//                        Selection.setSelection(text, text?.length!!);
+//                    }
+//                }
+//            })
+//        }
 
         observers()
     }

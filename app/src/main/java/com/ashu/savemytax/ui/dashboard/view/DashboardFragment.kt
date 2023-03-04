@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ashu.savemytax.data.SalaryResponse
 import com.ashu.savemytax.databinding.FragmentDashboardBinding
 import com.ashu.savemytax.ui.dashboard.DashboardViewModel
+import com.ashu.savemytax.ui.dialogs.HRADialog
 import com.ashu.savemytax.utils.clickWithDebounce
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.android.PieChart
+import java.util.*
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
@@ -29,6 +31,8 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var expanded: Boolean = false
+
+    private var base: Double? = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +65,7 @@ class DashboardFragment : Fragment() {
 
         dashboardAdapter = DashboardAdapter(map, DashboardAdapter.OnClickListener {
             Log.d("gotresponse", it.toString())
-            inflateDialog(it.componentName?.split(" ")?.first())
+            inflateDialog(it.componentName?.split(" ")?.first(), it, it.currency)
         })
 
         binding.recyclerSalaryComponents.apply {
@@ -69,6 +73,7 @@ class DashboardFragment : Fragment() {
             adapter = dashboardAdapter
         }
 
+        base= map?.first()?.componentAmount
         val total = map?.last()?.componentAmount
         val slices = mutableListOf<PieChart.Slice>()
         val hsvColor = floatArrayOf(0f, 1f, 1f)
@@ -97,16 +102,18 @@ class DashboardFragment : Fragment() {
                 binding.recyclerSalaryComponents.visibility = View.GONE
             } else {
                 expanded = true
-                binding.recyclerSalaryComponents.visibility = View.VISIBLE
+                binding.recyclerSalaryComponents.apply {
+                    visibility = View.VISIBLE
+                    adapter = dashboardAdapter
+                }
             }
         }
     }
 
-    private fun inflateDialog(name: String?) {
+    private fun inflateDialog(name: String?, salaryResponse: SalaryResponse?, currency: String?) {
         when(name) {
             "HRA" ->
-
-                return
+                HRADialog(requireContext(), salaryResponse, base, currency)
             "Fitness" ->
                 return
             "Telephone" ->

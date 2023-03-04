@@ -2,6 +2,7 @@ package com.ashu.ocotopus.di
 
 import com.ashu.savemytax.BuildConfig
 import com.ashu.savemytax.utils.Constant
+import com.grapesnberries.curllogger.CurlLoggerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,7 @@ object NetworkModule {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
             .addNetworkInterceptor(loggingInterceptor)
+            .addInterceptor(CurlLoggerInterceptor())
 //            .addInterceptor()
             .build()
     } else {
